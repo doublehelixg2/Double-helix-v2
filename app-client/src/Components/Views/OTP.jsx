@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import User from '../../scripts/User'
 
 import {Card, Typography, TextField, Button} from '@material-ui/core'
+import VideoScreenStreaming from './VideoScreen';
 
 
 class StreamingCheck extends React.Component {
@@ -13,8 +14,11 @@ class StreamingCheck extends React.Component {
             enabled : false, 
             otp : '',
             bedID : '',
-            message : ''
+            message : '',
+            videoScreen : 0 ,
+            streamingData : null
         }
+        this.handler = this.handler.bind(this)
     }
 
     componentWillMount() {
@@ -29,15 +33,20 @@ class StreamingCheck extends React.Component {
     otpLogin(otp, bedID) {
         new User().verifyOTP(otp, bedID, (result) => {
             if(result.verified) {
-                console.log(result)
                 this.setState({message : 'OTP verified'})
+                this.setState({streamingData : result.result})
+                this.setState({videoScreen : 1})
             }else this.setState({message : 'OTP not verified'})
         })
     }
 
+    handler(value) {
+        this.setState({videoScreen : value})
+    }
+
     render() {
 
-        if(!this.state.enabled)
+        if(!this.state.enabled && (this.state.videoScreen === 0))
           return (
              <div style = {{margin : '40px auto', width : '80%', padding : '20px'}}>
                  <Card style = {{width : '90%', padding : '20px', textAlign : 'center'}}>
@@ -46,7 +55,7 @@ class StreamingCheck extends React.Component {
                  </Card>
              </div>
          )
-        else 
+        else if(this.state.enabled && (this.state.videoScreen === 0))
            return (
             <div style = {{margin : '40px auto', width : '80%', padding : '20px'}}>
             <Card style = {{width : '90%', padding : '20px', textAlign : 'center'}}>
@@ -71,6 +80,11 @@ class StreamingCheck extends React.Component {
             </Card>
             </div>
            )
+        else if (this.state.videoScreen !== 0) {
+            return (
+                <VideoScreenStreaming userData = {this.state.userData} handler = {this.handler} streamingData = {this.state.streamingData}/>
+            )
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var path = require('path')
 
 var Database = require('./models/Database').Database
 var IP = require('./utils/utils').ip
@@ -15,6 +16,8 @@ var db = new Database("double-helix_dev").connect()
 var app = express()
 app.use(bodyParser.json())
 
+app.use(express.static('streaming'))
+
 
 //main ping route:
 app.post('/api/ping', (req, resp) => {
@@ -24,6 +27,9 @@ app.post('/api/ping', (req, resp) => {
     resp.send({success : true, pingData : req.body})
 })
 
+app.get('/api/playlistdemo.m3u8', (req, resp) => {
+    resp.sendFile(path.join(__dirname , 'streaming/playlists/playlistdemo.m3u8'))
+})
 /*
 
   ----- Route usage -----

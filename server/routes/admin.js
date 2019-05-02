@@ -102,6 +102,12 @@ router.post('/add-document', (req, resp) => {
     document.add(req.body, (result) => resp.send(JSON.stringify(result)))
 })
 
+router.get('/get-bill-sum', (req, resp) => {
+    patient.computeBillingSum((result) => {
+        resp.send(JSON.stringify(result))
+    })
+})
+
 //related to streaming :
 
 router.post('/enable-streaming', (req, resp) => {

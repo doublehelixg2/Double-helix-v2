@@ -48,6 +48,18 @@ router_user.post('/download-document', (req, resp) => {
     })
 })
 
+router_user.post('/get-relatives', (req, resp) => {
+    relative.getRelatives(req.body.patientID, (result) => {
+        resp.send(JSON.stringify(result))
+    })
+})
+
+router_user.post('/update-payment', (req, resp) => {
+    patient.updateBilling(req.body.patientID, req.body.seconds, (result) => {
+        resp.send(JSON.stringify(result))
+    })
+})
+
 
 
 //streaming routes : 

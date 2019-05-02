@@ -53,6 +53,28 @@ class User {
             }
         })
     }
+
+    getRelativeIds(patientID, callback) {
+        fetch(config.host + '/user/get-relatives', {
+            headers : {"Content-Type" : "application/json", "Accept" : "application/json"},
+            mode : 'cors',
+            method : 'post', body : JSON.stringify({patientID : patientID})
+        }).then((data) => data.json()).then((data) => {
+            callback(data)
+        })
+    }
+
+    updatePayment(patientID, seconds, callback) {
+        fetch(config.host + "/user/update-payment", {
+            headers : {"Content-Type" : "application/json", "Accept" : "application/json"},
+            mode : 'cors', method : 'post', body : JSON.stringify({
+                patientID : patientID,
+                seconds : seconds
+            })
+        }).then((data) => data.json()).then((data) => {
+            callback(data)
+        })
+    }
 }
 
 export default User

@@ -5,6 +5,7 @@ import { Typography, AppBar, Toolbar, Button, List, Drawer, ListItemIcon, ListIt
 import Home from './Views/Home';
 import FileList from './Views/Files';
 import StreamingCheck from './Views/OTP';
+import Conference from './Views/Conference';
 
 class AppBarExtended extends React.Component {
     render() {
@@ -77,6 +78,7 @@ class Dashboard extends React.Component {
             case 0 : this.setState({choice : Home}); break;
             case 1 : this.setState({choice : StreamingCheck}); break
             case 2 : this.setState({choice : FileList}); break;
+            case 3 : this.setState({choice : Conference})
             default : console.log("Invalid choice"); break;
         }
     }

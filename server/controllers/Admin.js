@@ -6,7 +6,7 @@ class Admin {
 
 
     create(username, email, password) {
-        let admin = new Admin({username : username, email : email, password : password})
+        var admin = new AdminSchema({username : username, email : email, password : password})
         admin.save((err, admin) => {
             if(err) {
                 console.log(err)
@@ -24,5 +24,7 @@ class Admin {
         })
     }
 }
+
+//new Admin().create("Prasanna", "prasannahn1997@gmail.com", "Narasimha1997")
 
 module.exports = Admin

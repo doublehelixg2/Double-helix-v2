@@ -27,6 +27,7 @@ var PatientSchema = new mongoose.Schema({
     },
     billing : {
         type : Number,
+        default : 0.0
     },
     diseaseType : {
         type : String

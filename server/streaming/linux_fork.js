@@ -22,7 +22,7 @@ class StreamContainerService {
 
     createStream(roomID, cameraRoute, port) {
         var ip = IP()
-        var args = ['./streaming/flv2.sh', cameraRoute, ip,  port, roomID]
+        var args = ['./streaming/flv2.sh',  roomID, cameraRoute, port, roomID, ip]
         var child = spawn('sh', args)
         var otp = otp_()
         //send sms
@@ -37,12 +37,14 @@ class StreamContainerService {
             streamURL : "rtmp://" + IP() + ":" + port + "/live/" + roomID 
         }
 
+        console.log("OTP :" , otp)
+
         //----send sms ---------------
         Patient.findOne({ bedID: roomID}).exec((error, result) => {
             Relative.find({patientID : result.patientID}).exec((error , result2) => {
                 for(var i = 0; i < result2.length; i++) {
                     var sms_text = "Streaming is enabled , to watch the stream, use OTP : " + otp
-                    sms(result2[i].phone, sms_text, (result) => {return})
+                   sms(result2[i].phone, sms_text, (result) => {return})
                 }
             })
         })

@@ -8,8 +8,9 @@ module.exports.generateUnqiue = (length) => {
     })
 }
 
-module.exports.billCalculator = (nb_relatives, perMinute) => {
-    return "Yet to be implemented"
+module.exports.billCalculator = (seconds, perMinute) => {
+    var minutes = seconds / 60
+    return perMinute * minutes
 }
 
 module.exports.otp_generator = () => {

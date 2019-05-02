@@ -16,6 +16,10 @@ var DoctorSchema = mongoose.Schema({
         unique : true,
         required : true
     },
+    password : {
+        type : String, 
+        required : true
+    },
     patients : [{patientID : {type : String, required : true, unique : true}}]
 })
 
